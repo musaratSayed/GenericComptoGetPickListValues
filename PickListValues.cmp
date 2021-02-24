@@ -1,0 +1,8 @@
+//Aura Service Component tied to Apex Class to get PickList Valyes and stored in picklistValues attribute
+
+<aura:component controller="PickListController" access="global" >
+    <aura:attribute name="picklistValues" type="Object"/>
+      <aura:attribute name="sObjectName" type="String"/>
+    <aura:attribute name="fieldName" type="String"/>
+    <aura:handler name="init" value="{!this}" action ="{!c.doInit}"/>
+</aura:component>
