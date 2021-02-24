@@ -1,0 +1,27 @@
+//Apex Class to get PickList Values dynamically based on Object name and picklistField passed as input
+
+public class PickListController {
+
+    @AuraEnabled
+    public static List<String> getPickListValuesIntoList(String objectType,String selectedField)
+    {
+        List<String> pickListValuesList = new List<String>();
+		
+        Schema.SObjectType convertToObj = Schema.getGlobalDescribe().get(objectType); // gives token for sObje
+        
+        Schema.DescribeSObjectResult res = convertToObj.getDescribe();// describe sobject
+        
+        Schema.DescribeFieldResult fieldResult = res.fields.getMap().get(selectedField).getDescribe(); // get token of field and describe it
+        
+        List<Schema.PicklistEntry> ple = fieldResult.getPickListValues();
+        
+        for (Schema.PicklistEntry pickListVal: ple)
+        {
+            pickListValuesList.add(pickListVal.getLabel());
+        }
+        
+        return pickListValuesList;
+
+    }
+    
+}
